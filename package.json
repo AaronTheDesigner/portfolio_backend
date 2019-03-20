@@ -1,0 +1,38 @@
+{
+  "name": "portfolio_backend",
+  "version": "1.0.2",
+  "description": "backend prototype for my portfolio website",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronTheDesigner/portfolio_backend.git"
+  },
+  "keywords": [
+    "backend",
+    "portfolio",
+    "git",
+    "graphql",
+    "mongodb",
+    "node",
+    "express",
+    "javascript",
+    "graphiql"
+  ],
+  "author": "Aaron Toliver",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AaronTheDesigner/portfolio_backend/issues"
+  },
+  "homepage": "https://github.com/AaronTheDesigner/portfolio_backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "mongoose": "^5.4.19"
+  }
+}
