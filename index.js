@@ -2,6 +2,7 @@
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const mongoose = require("mongoose");
+const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -14,24 +15,11 @@ const app = express();
 //allow cross-origin requests
 app.use(cors());
 
-app.get("/", function(req, res) {
-  res.send("GraphiQL Deployment for Portfolio Website");
-});
-
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    graphiql: true
-  })
-);
-
 mongoose
   .connect(
     `mongodb://${process.env.MONGO_USER}:${
       process.env.MONGO_PASSWORD
-    }@ds331145.mlab.com:31145/${process.env.MONGO_DB}`,
-    { useNewUrlParser: true }
+    }@ds331145.mlab.com:31145/${process.env.MONGO_DB}`
   )
   .then(() => {
     app.listen(3000);
@@ -41,3 +29,15 @@ mongoose
   .catch(err => {
     console.log(err);
   });
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    graphiql: true
+  })
+);
+
+app.get("/", function(req, res) {
+  res.send("GraphiQL Deployment for Portfolio Website");
+});
