@@ -12,24 +12,6 @@ const schema = require("./graphql/schema/index");
 // app
 const app = express();
 
-//allow cross-origin requests
-app.use(cors());
-
-mongoose
-  .connect(
-    `mongodb://${process.env.MONGO_USER}:${
-      process.env.MONGO_PASSWORD
-    }@ds331145.mlab.com:31145/${process.env.MONGO_DB}`
-  )
-  .then(() => {
-    app.listen(3000);
-    console.log("Database connected... ");
-    console.log("App listening on Port 3000...");
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -39,5 +21,12 @@ app.use(
 );
 
 app.get("/", function(req, res) {
-  res.send("GraphiQL Deployment for Portfolio Website");
+  res.send("GraphiQL Deployment for Portfolio.");
+});
+
+//allow cross-origin requests
+app.use(cors());
+
+app.listen(process.env.PORT || 5000, () => {
+  console.log("App listening");
 });
