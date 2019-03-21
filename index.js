@@ -28,9 +28,7 @@ app.use(
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${
-      process.env.MONGO_PASSWORD
-    }@cluster0-ddfcp.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`
+    `mongodb+srv://Aaron:gokuh123@cluster0-ddfcp.mongodb.net/portfolio_graph_backend?retryWrites=true`
   )
   .then(() => {
     app.listen(3000);
