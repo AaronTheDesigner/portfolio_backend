@@ -14,7 +14,7 @@ const app = express();
 //allow cross-origin requests
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/", function(req, res) {
   res.send("GraphiQL Deployment for Portfolio Website");
 });
 
