@@ -1,8 +1,19 @@
-const { buildSchema } = require("graphql");
+const graphql = require("graphql");
+const Project = require("../../models/Project");
+
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull
+} = graphql;
 
 /*type - schema types: Project, User. 
 Schemas defining how graphql defines database schemas. 
-Should coorespond to models
+Should coorespond to models. Types are not exported but defined
 
 input - defines what the user can define for the object
 
@@ -14,48 +25,30 @@ schema: rootQuery and rootMutation
 
 */
 
-module.exports = buildSchema(`
+const ProjectType = new GraphQLObjectType({
+  name: "Project",
+  fields: () => ({
+    id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    subtitle: { type: GraphQLString },
+    description: { type: GraphQLString }
+  })
+});
 
-type Project {
-    _id: ID
-    title: String!
-    subtitle: String!
-    description: String!
-}
+const RootQuery = new GraphQLObjectType({
+  name: "RootQuery",
 
-type User {
-    _id: ID!
-    name: String!
-    email: String!
-    password: String!
-    cratedProjects: [Project!]
-}
+  fields: {
+    projects: {
+      type: new GraphQLList(ProjectType),
+      resolve(parent, args) {
+        return Project.find({});
+      }
+    }
+  }
+});
 
-input ProjectInput {
-    title: String!
-    subtitle: String!
-    description: String!
-}
-
-input UserInput {
-    name: String!
-    email: String!
-    password: String!
-}
-
-type RootQuery {
-    projects: [Project!]!
-    users: [User!]!
-}
-
-type RootMutation {
-    createProject(projectInput: ProjectInput): Project
-    createUser(userInput: UserInput): User
-}
-
-schema {
-    query: RootQuery
-    mutation: RootMutation
-}
-
-`);
+module.exports = new GraphQLSchema({
+  query: RootQuery
+  //mutation: RootMutation
+});

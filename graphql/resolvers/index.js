@@ -30,18 +30,13 @@ module.exports = {
       title: args.projectInput.title,
       subtitle: args.projectInput.subtitle,
       description: args.projectInput.description
-    });
-    let formattedProject;
-    return project
-      .save()
-      .then(result => {
-        formattedProject = { ...result._doc, _id: result.id };
-        console.log(result);
-        console.log(formattedProject);
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
+    }).save();
+    return project;
+  },
+  deleteProject: function({ id }) {
+    if (!id) {
+      throw new Error("no project exists");
+    }
+    Project.findByIdAndDelete();
   }
 };
