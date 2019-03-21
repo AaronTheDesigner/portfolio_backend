@@ -30,7 +30,8 @@ mongoose
   .connect(
     `mongodb://${process.env.MONGO_USER}:${
       process.env.MONGO_PASSWORD
-    }@ds331145.mlab.com:31145/${process.env.MONGO_DB}`
+    }@ds331145.mlab.com:31145/${process.env.MONGO_DB}`,
+    { useNewUrlParser: true }
   )
   .then(() => {
     app.listen(3000);
