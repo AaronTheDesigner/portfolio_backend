@@ -57,9 +57,9 @@ const RootQuery = new GraphQLObjectType({
 });
 
 const RootMutation = new GraphQLObjectType({
-  name: "Mutation",
+  name: "RootMutation",
   fields: {
-    addProject: {
+    createProject: {
       type: ProjectType,
       // args - the equivalent of input type in template resolver
       args: {
@@ -67,6 +67,7 @@ const RootMutation = new GraphQLObjectType({
         subtitle: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) }
       },
+      // why are parents needed to make mutations work?
       resolve(parent, args) {
         let project = new Project({
           title: args.title,
@@ -74,6 +75,32 @@ const RootMutation = new GraphQLObjectType({
           description: args.description
         });
         return project.save();
+      }
+    },
+    deleteProject: {
+      type: ProjectType,
+      description:
+        "delete project with id and return the project that has been deleted",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve: (value, { id }) => {
+        return Project.findByIdAndDelete(id);
+      }
+    },
+    updateProject: {
+      type: ProjectType,
+      description: "edit object with id and return edited object",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve: (value, { id }, args) => {
+        let project = new Project({
+          title: args.title,
+          subtitle: args.subtitle,
+          description: args.description
+        });
+        return project.findByIdAndUpdate(id);
       }
     }
   }
