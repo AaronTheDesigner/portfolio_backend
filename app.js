@@ -13,6 +13,10 @@ const app = express();
 //allow cross-origin requests
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("GraphiQL Deployment for Portfolio Website");
+});
+
 app.use(
   "/graphql",
   graphqlHTTP({

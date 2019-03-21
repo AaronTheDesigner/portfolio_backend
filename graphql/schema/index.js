@@ -31,7 +31,9 @@ const ProjectType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     subtitle: { type: GraphQLString },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
+    url: { type: GraphQLString },
+    github: { type: GraphQLString }
   })
 });
 
@@ -65,14 +67,18 @@ const RootMutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         subtitle: { type: new GraphQLNonNull(GraphQLString) },
-        description: { type: new GraphQLNonNull(GraphQLString) }
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        url: { type: new GraphQLNonNull(GraphQLString) },
+        github: { type: new GraphQLNonNull(GraphQLString) }
       },
       // why are parents needed to make mutations work?
       resolve(parent, args) {
         let project = new Project({
           title: args.title,
           subtitle: args.subtitle,
-          description: args.description
+          description: args.description,
+          url: args.url,
+          github: args.github
         });
         return project.save();
       }
