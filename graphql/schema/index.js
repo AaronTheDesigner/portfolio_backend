@@ -37,18 +37,49 @@ const ProjectType = new GraphQLObjectType({
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
-
   fields: {
+    //read all projects
     projects: {
       type: new GraphQLList(ProjectType),
       resolve(parent, args) {
         return Project.find({});
+      }
+    },
+    //read individual project by id
+    project: {
+      type: ProjectType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Project.findById(args.id);
+      }
+    }
+  }
+});
+
+const RootMutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addProject: {
+      type: ProjectType,
+      // args - the equivalent of input type in template resolver
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        subtitle: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, args) {
+        let project = new Project({
+          title: args.title,
+          subtitle: args.subtitle,
+          description: args.description
+        });
+        return project.save();
       }
     }
   }
 });
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
-  //mutation: RootMutation
+  query: RootQuery,
+  mutation: RootMutation
 });
