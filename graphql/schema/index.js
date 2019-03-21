@@ -92,7 +92,10 @@ const RootMutation = new GraphQLObjectType({
       type: ProjectType,
       description: "edit object with id and return edited object",
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) }
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        subtitle: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve: (value, { id }, args) => {
         let project = new Project({
@@ -100,7 +103,7 @@ const RootMutation = new GraphQLObjectType({
           subtitle: args.subtitle,
           description: args.description
         });
-        return project.findByIdAndUpdate(id);
+        return Project.findByIdAndUpdate(id, project);
       }
     }
   }
