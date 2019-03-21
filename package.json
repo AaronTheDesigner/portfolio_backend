@@ -4,7 +4,8 @@
   "description": "backend prototype for my portfolio website",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
