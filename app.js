@@ -1,15 +1,17 @@
 //Packages
 const express = require("express");
-const bodyParser = require("body-parser");
 const graphqlHTTP = require("express-graphql");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //Imports
 const schema = require("./graphql/schema/index");
 
+// app
 const app = express();
 
-app.use(bodyParser.json());
+//allow cross-origin requests
+app.use(cors());
 
 app.use(
   "/graphql",
