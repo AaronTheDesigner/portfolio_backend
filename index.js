@@ -3,6 +3,7 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 
 //Imports
 const schema = require("./graphql/schema/index");
