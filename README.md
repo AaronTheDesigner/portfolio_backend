@@ -15,3 +15,4 @@ Practice for backend of portfolio. Uses node, mongodb, express, and graphql.
 9. GraphQL (U) Update Mutations - in progress
 10. GraphQL (D) Delete Mutations - complete
 11. CORS Enabled - complete
+12. Heroku Deployment - complete
